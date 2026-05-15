@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Plagiarism Results</h1>
+
+    <table>
+
+        <tr>
+            <th>File 1</th>
+            <th>File 2</th>
+            <th>Similarity</th>
+        </tr>
+
+        {% for result in results %}
+
+        <tr>
+
+            <td>{{ result.file1 }}</td>
+
+            <td>{{ result.file2 }}</td>
+
+            <td>
+
+                {% if result.score >= 80 %}
+
+                    <span class="high">
+                        {{ result.score }}%
+                    </span>
+
+                {% elif result.score >= 50 %}
+
+                    <span class="medium">
+                        {{ result.score }}%
+                    </span>
+
+                {% else %}
+
+                    <span class="low">
+                        {{ result.score }}%
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <a href="/" class="btn">
+        Upload More Files
+    </a>
+
+</div>
+
+</body>
+</html>

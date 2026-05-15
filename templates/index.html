@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Plagiarism Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Code Plagiarism Checker</h2>
+
+    <form method="POST">
+        <textarea name="code1" placeholder="Enter Code 1"></textarea><br><br>
+        <textarea name="code2" placeholder="Enter Code 2"></textarea><br><br>
+        <button type="submit">Check Similarity</button>
+    </form>
+
+    <h2>Upload Files</h2>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file1" required><br><br>
+    <input type="file" name="file2" required><br><br>
+
+    <button type="submit">Upload & Check</button>
+</form>
+
+    {% if similarity %}
+    {% if similarity > 70 %}
+        <h3 style="color:red;">High Plagiarism: {{ similarity }}%</h3>
+    {% elif similarity > 40 %}
+        <h3 style="color:orange;">Medium Plagiarism: {{ similarity }}%</h3>
+    {% else %}
+        <h3 style="color:green;">Low Plagiarism: {{ similarity }}%</h3>
+    {% endif %}
+{% endif %}
+</body>
+
+</html>
