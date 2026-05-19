@@ -1,36 +1,100 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Code Plagiarism Checker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h2>Code Plagiarism Checker</h2>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Code Plagiarism Checker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI Code Plagiarism Checker</h1>
+
+    <p class="subtitle">
+        Compare multiple codes and files instantly
+    </p>
+
+    <!-- MULTIPLE CODE INPUT -->
     <form method="POST">
-        <textarea name="code1" placeholder="Enter Code 1"></textarea><br><br>
-        <textarea name="code2" placeholder="Enter Code 2"></textarea><br><br>
-        <button type="submit">Check Similarity</button>
+
+        <textarea name="codes"
+                  placeholder="Paste Code 1"></textarea>
+
+        <textarea name="codes"
+                  placeholder="Paste Code 2"></textarea>
+
+        <textarea name="codes"
+                  placeholder="Paste Code 3"></textarea>
+
+        <button type="submit">
+            Compare Codes
+        </button>
+
     </form>
 
-    <h2>Upload Files</h2>
 
-<form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file1" required><br><br>
-    <input type="file" name="file2" required><br><br>
+    <!-- MULTIPLE FILE UPLOAD -->
+    <form action="/upload"
+          method="POST"
+          enctype="multipart/form-data">
 
-    <button type="submit">Upload & Check</button>
-</form>
+        <input type="file"
+               name="files"
+               multiple
+               required>
 
-    {% if similarity %}
-    {% if similarity > 70 %}
-        <h3 style="color:red;">High Plagiarism: {{ similarity }}%</h3>
-    {% elif similarity > 40 %}
-        <h3 style="color:orange;">Medium Plagiarism: {{ similarity }}%</h3>
-    {% else %}
-        <h3 style="color:green;">Low Plagiarism: {{ similarity }}%</h3>
+        <button type="submit">
+            Upload Files
+        </button>
+
+    </form>
+
+
+    <!-- RESULTS -->
+    {% if results %}
+
+        {% for result in results %}
+
+        <div class="result-box">
+
+            <h3>
+
+                {{ result.name1 }}
+
+                VS
+
+                {{ result.name2 }}
+
+            </h3>
+
+            <h2>
+
+                Similarity:
+                {{ result.similarity }}%
+
+            </h2>
+
+            <pre>{{ result.diff }}</pre>
+
+        </div>
+
+        {% endfor %}
+
     {% endif %}
-{% endif %}
-</body>
 
+</div>
+
+</body>
 </html>
