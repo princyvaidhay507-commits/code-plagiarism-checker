@@ -4,6 +4,9 @@ from flask import Flask, render_template, request
 
 from checker import calculate_similarity
 
+# 🔥 NEW IMPORT
+from scraper import search_online_code
+
 
 app = Flask(__name__)
 
@@ -26,6 +29,9 @@ def highlight_diff(code1, code2):
 def index():
 
     results = []
+
+    # 🔥 NEW VARIABLE
+    online_results = []
 
     # ====================================
     # MULTIPLE TEXT CODE COMPARISON
@@ -54,6 +60,11 @@ def index():
 
                 )
 
+                # 🔥 WEB SCRAPING FEATURE
+                online_results = search_online_code(
+                    "python code"
+                )
+
                 diff_result = highlight_diff(
 
                     codes[i],
@@ -73,7 +84,10 @@ def index():
     return render_template(
 
         "index.html",
-        results=results
+        results=results,
+
+        # 🔥 SEND TO HTML
+        online_results=online_results
 
     )
 
@@ -87,6 +101,9 @@ def upload():
     file_data = []
 
     results = []
+
+    # 🔥 NEW VARIABLE
+    online_results = []
 
     # Read files
     for file in uploaded_files:
@@ -117,6 +134,11 @@ def upload():
 
             )
 
+            # 🔥 WEB SCRAPING FEATURE
+            online_results = search_online_code(
+                "python code"
+            )
+
             diff_result = highlight_diff(
 
                 file_data[i]["code"],
@@ -136,7 +158,10 @@ def upload():
     return render_template(
 
         "index.html",
-        results=results
+        results=results,
+
+        # 🔥 SEND TO HTML
+        online_results=online_results
 
     )
 

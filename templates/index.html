@@ -94,6 +94,28 @@
 
     {% endif %}
 
+
+    <!-- 🔥 NEW WEB SCRAPING RESULT -->
+    {% if online_results %}
+
+    <div class="result-box">
+
+        <h2>Online Similar Codes</h2>
+
+        <ul>
+
+            {% for item in online_results %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    {% endif %}
+
 </div>
 
 </body>
